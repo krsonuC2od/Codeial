@@ -1,12 +1,29 @@
+// step 2 use express module
 const express = require('express');
+// step 2 use  express router 
 const route=express.Router();
 
-const user =require('../Controller/user_controller')
+// step 2 use  user controller from controller 
+const userController =require('../Controller/user_controller')
 
-route.get('/profile',user.profile)
-route.get('/post',user.post)
+//  step 2 call user profile
+route.get('/profile',userController.profile)
+
+//step 2 call user post
+route.get('/post',userController.post);
+
+
+// routing user signUp form
+route.get('/sign-Up',userController.userSign_Up);
+
+// routing user signIN form
+route.get('/sign-In',userController.userSign_In);
+
+route.post('/create',userController.create);
 
 
 
 
+
+// step 2 export router
 module.exports=route;
