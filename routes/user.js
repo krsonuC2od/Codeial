@@ -21,6 +21,7 @@ route.get('/sign-In',userController.userSign_In);
 
 route.post('/create',userController.create);
 
+route.post('/create-Section',userController.createSection);
 
 
 
