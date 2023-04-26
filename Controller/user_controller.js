@@ -10,12 +10,20 @@ module.exports.post = function (req, res) {
 };
 
 module.exports.userSign_Up = function (req, res) {
+  if(req.isAuthenticated()){
+    return res.redirect('/user/profile');
+  }
+
+
   res.render("userSign_Up", {
     title: "Codeial",
   });
 };
 
 module.exports.userSign_In = function (req, res) {
+  if(req.isAuthenticated()){
+    return res.redirect('/user/profile');
+  }
   res.render("userSign_In", {
     title: "Codeial",
   });
@@ -48,3 +56,14 @@ module.exports.create = function (req, res) {
     }
   });
 };
+
+//sign in and create session for user
+module.exports.createSession = function(req,res){
+  return res.redirect('/');
+}
+
+
+module.exports.destroySession = function(req,res){
+  // req.logout();
+  // return res.redirect('/');
+}

@@ -5,6 +5,15 @@ const app =express();
 const port=8000;
 const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
+//step 2 use mongoose db in express 
+const db =require('./config/mongoose');
+
+// used for session cookies
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-Strategy');
+const MongoStore = require('connect-mongo')(session);
+
 app.use(expressLayouts);
 
 app.use(express.urlencoded());
@@ -15,11 +24,38 @@ app.set('layout extractScripts',true);
 // step 2 set path of static folder
 app.use(express.static('./assets'));
 
-//step 2 use mongoose db in express 
-const db =require('./config/mongoose');
+
 //  step 2 set view engine for views file
 app.set("view engine", "ejs");
 app.set("views",'./views');
+//mongo store is used to store the session cookie in the db
+
+
+app.use(session({
+    name:'codeial',
+    //Todo latter 
+    secret:'Anything',
+    saveUninitialized:false,
+    resave : false,
+    cookie:{
+        maxAge:( 1000 * 60 * 100)
+    },
+    store : new MongoStore(
+        {
+            mongooseConnection:db,
+            autoRemove:'disabled'
+        },
+        function(err){
+            console.log(err || 'connect-mongodb setup ok ');
+        },
+        
+    )
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 // step 2 set path of router in express 
 app.use('/',require('./routes'))
