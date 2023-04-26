@@ -23,10 +23,14 @@ route.get('/sign-In',userController.userSign_In);
 
 route.post('/create',userController.create);
 
+
 route.post('/create-Section',passport.authenticate(
     'local',
     {failureRedirect:'/user/sign-In'},
 ),userController.createSession);
+
+route.post('/create-Section',userController.createSection);
+
 
 
 route.get('/sign-out',(req, res) => {
