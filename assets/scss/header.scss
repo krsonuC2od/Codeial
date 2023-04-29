@@ -1,0 +1,31 @@
+$ubuntu-font:  'Ubuntu', 'Arial', 'Helvetica', sans-serif;
+header {
+  background-color: #2874f0;
+  display: flex;
+  .head {
+    color: white;
+    margin-left: 5px;
+   font:$ubuntu-font ;
+  }
+
+  ul {
+
+    display: flex;
+    justify-content: space-between;
+    margin-left: 80%;
+    font:$ubuntu-font ;
+    color: white;
+    list-style: none;
+    
+    li {
+      margin-left: 8px;
+
+      a {
+        text-decoration: none;
+        color: white;
+        font:$ubuntu-font ;
+
+      }
+    }
+  }
+}

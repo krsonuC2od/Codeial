@@ -1,0 +1,11 @@
+$ubuntu-font:  'Ubuntu', 'Arial', 'Helvetica', sans-serif;
+body{
+    font: $ubuntu-font;
+   
+    margin: 0;
+    div{
+        height: 100vh;
+    }
+}
+
+

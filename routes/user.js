@@ -29,7 +29,7 @@ route.post('/create-Section',passport.authenticate(
     {failureRedirect:'/user/sign-In'},
 ),userController.createSession);
 
-route.post('/create-Section',userController.createSection);
+// route.post('/create-Section',userController.createSection);
 
 
 

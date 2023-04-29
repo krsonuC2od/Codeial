@@ -45,9 +45,12 @@ passport.checkAuthentication = function (req ,res , next)
   //if the user is signed in, then pass on the request to the next function (controller's action) 
   if(req.isAuthenticated()){
     return next();
+  
+  }else{
+ // if the user is not signed in 
+ return res.redirect('/user/sign-In');
   }
-  // if the user is not signed in 
-  return res.redirect('/user/sign-In');
+ 
 }
 
 passport.setAuthenticatedUser = function (req , res , next){

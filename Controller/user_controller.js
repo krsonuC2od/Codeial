@@ -2,21 +2,20 @@ const User = require("../Models/user");
 // step 2 part of controller create controller of user profile page
 
 module.exports.profile = function (req, res) {
-  
-  if (req.cookies.user_id) {
-    User.findById(req.cookies.user_id, function (err, user) {
-      
-      if (user) {
-        return res.render('userProfile', {
-          title: "user||Profile",
-          user: user
-        })
-      }
-      return res.redirect("/user/sign-In");
-    });
-  } else {
-    return res.redirect("/user/sign-In");
-  }
+  // if (req.cookies.user_id) {
+  //   User.findById(req.cookies.user_id, function (err, user) {
+  //     // if (user) {
+       
+  //     // return res.redirect("/user/sign-In");
+  //   });
+  // } else {
+  //   return res.redirect("/user/sign-In");
+  // }
+  return res.render("userProfile", {
+    title: "user||Profile",
+    // user: user,
+  // });
+  })
 };
 // step 2 part of controller create controller of user post page
 module.exports.post = function (req, res) {
@@ -24,10 +23,9 @@ module.exports.post = function (req, res) {
 };
 // step :: 3 created some action for page data
 module.exports.userSign_Up = function (req, res) {
-  if(req.isAuthenticated()){
-    return res.redirect('/user/profile');
+  if (req.isAuthenticated()) {
+    return res.redirect("/user/profile");
   }
-
 
   res.render("userSign_Up", {
     title: "Codeial",
@@ -35,14 +33,14 @@ module.exports.userSign_Up = function (req, res) {
 };
 // step :: 3 created some action for page data
 module.exports.userSign_In = function (req, res) {
-  if(req.isAuthenticated()){
-    return res.redirect('/user/profile');
+  if (req.isAuthenticated()) {
+    return res.redirect("/user/profile");
   }
   res.render("userSign_In", {
     title: "Codeial",
   });
 };
- // step :: 3 creating new user from sign up page data
+// step :: 3 creating new user from sign up page data
 module.exports.create = function (req, res) {
   console.log(req.body);
   if (req.body.password != req.body.confirm_password) {
@@ -71,17 +69,15 @@ module.exports.create = function (req, res) {
   });
 };
 
-
 //sign in and create session for user
-module.exports.createSession = function(req,res){
-  return res.redirect('/');
-}
+module.exports.createSession = function (req, res) {
+  return res.redirect("/");
+};
 
-
-module.exports.destroySession = function(req,res){
+module.exports.destroySession = function (req, res) {
   // req.logout();
   // return res.redirect('/');
-}
+};
 
 // step :: 3 login user validation
 module.exports.createSection = function (req, res) {
@@ -106,4 +102,3 @@ module.exports.createSection = function (req, res) {
     }
   });
 };
-

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/CSS/layout.css">
+    <link rel="stylesheet" href="/CSS/footer.css">
+    <link rel="stylesheet" href="/CSS/header.css">
  <!-- step 2 extract style and script from sub page into the layout -->
     <%- style %>
 </head>
@@ -13,8 +15,10 @@
     <!-- under step 2 crate all view folder for complete  MVC -->
     <!--  layout is rapper all page inherit data from here -->
     <%- include('_header') -%>
-
-    <%- body -%>
+      <div >
+        <%- body -%>
+      </div>
+   
     
     <%- include('_footer') -%> 
     <%- script %>
