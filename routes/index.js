@@ -7,12 +7,14 @@ const homeController =require('../Controller/home_controller');
 const router = require('./user');
 
 
+
 console.log("router  is loaded");
 // step 2  call home through Controller
 route.get('/',homeController.home);
 
 // step 2  call user through Controller
 route.use('/user',require('./user'));
+route.use('/post',require('./post'));
 
 
 

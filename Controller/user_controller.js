@@ -1,4 +1,5 @@
 const User = require("../Models/user");
+
 // step 2 part of controller create controller of user profile page
 
 module.exports.profile = function (req, res) {
@@ -19,7 +20,9 @@ module.exports.profile = function (req, res) {
 };
 // step 2 part of controller create controller of user post page
 module.exports.post = function (req, res) {
-  return res.end("<h1>Welcome to post section</h1>");
+   return res.end("<h1>Welcome to post section</h1>");
+  
+   
 };
 // step :: 3 created some action for page data
 module.exports.userSign_Up = function (req, res) {
