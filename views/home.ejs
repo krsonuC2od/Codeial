@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
-</head>
+  </head>
 
-<body>
-       <!-- step 2 create mvc -->
+  <body>
+    <!-- step 2 create mvc -->
     <h1>Welcome To /<%=title%></h1>
-   
- <section id="feed-posts">
-    <h1>posts</h1>
-    <form action="/post/create" id="new-post-form" method="post">
-    <textarea name="content" cols="30" rows="5" placeholder="Text Here..."></textarea>
-    <input type="submit" value="submit">
-    </form>
-    </section>  
-</body>
 
+    <section id="feed-posts">
+      <h1>posts</h1>
+      <form action="/post/create" id="new-post-form" method="post">
+        <textarea
+          name="content"
+          cols="30"
+          rows="5"
+          placeholder="Text Here..."
+        ></textarea>
+        <input type="submit" value="submit" />
+      </form>
+      <div id="posts-list-container">
+        <ul>
+          <%for(post of posts) {%>
+          <li>
+            <p>
+              <%= post.content %>
+              <br />
+              <small> <%=post.user.name%> </small>
+            </p>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+    </section>
+  </body>
 </html>
