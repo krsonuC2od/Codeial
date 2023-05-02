@@ -15,6 +15,7 @@ route.get('/',homeController.home);
 // step 2  call user through Controller
 route.use('/user',require('./user'));
 route.use('/post',require('./post'));
+route.use('/comments',require('./comment'));
 
 
 
