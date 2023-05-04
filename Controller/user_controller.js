@@ -12,12 +12,25 @@ module.exports.profile = function (req, res) {
   // } else {
   //   return res.redirect("/user/sign-In");
   // }
-  return res.render("userProfile", {
-    title: "user||Profile",
-    // user: user,
-  // });
-  })
+  User.findById(req.params.id,function(err , user){
+    return res.render("userProfile", {
+      title: "user||Profile",
+      profile_user: user
+   
+    });
+  });
+  
 };
+module.exports.update = function(req , res){
+  if(req.user.id == req.params.id){
+    User.findByIdAndUpdate(req.params.id , req.body, function(err,user){
+      return res.redirect('back');
+    });
+  }else{
+    return res.status(401).send('Unauthorized');
+  }
+}
+
 // step 2 part of controller create controller of user post page
 module.exports.post = function (req, res) {
    return res.end("<h1>Welcome to post section</h1>");

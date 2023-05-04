@@ -9,7 +9,8 @@ const userController =require('../Controller/user_controller')
 const passport = require('passport');
 
 //  step 2 call user profile
-route.get('/profile',passport.checkAuthentication, userController.profile)
+route.get('/profile/:id',passport.checkAuthentication, userController.profile)
+route.post('/update/:id',passport.checkAuthentication, userController.update)
 
 //step 2 call user post
 route.get('/post',userController.post);

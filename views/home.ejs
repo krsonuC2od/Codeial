@@ -5,62 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%=title%></title>
+    <link rel="stylesheet" href="/CSS/home.css" />
   </head>
 
   <body>
     <!-- step 2 create mvc -->
-    <h1>Welcome To /<%=title%></h1>
 
-    <section id="feed-posts">
-      <h1>posts</h1>
-      <% if(locals.user) { %>
-      <form action="/post/create" id="new-post-form" method="post">
-        <textarea
-          name="content"
-          cols="30"
-          rows="5"
-          placeholder="Text Here..."
-        ></textarea>
-        <input type="submit" value="submit" />
-      </form>
-      <% } %>
-      <div id="posts-list-container">
-        <ul>
-          <%for(post of posts) {%>
-          <li>
-            <p>
-              <strong> <%=post.user.name%> </strong><br />
-              <%= post.content %>
-            </p>
-            <div class="post-comments">
-              <% if(locals.user){ %>
-              <form action="/comments/create" method="POST">
-                <input
-                  type="text"
-                  name="content"
-                  placeholder="Type here to Add comment.."
-                />
-                <input type="hidden" name="post" value="<%=post._id%>" />
-                <input type="submit" value="Add Comment" />
-              </form>
+    <!-- post container -->
+    <div id="home_container">
+      <section id="feed-posts">
+        <h1>posts</h1>
+        <!-- User Authentication for visible post form -->
+        <% if(locals.user) { %>
+        <form action="/post/create" id="new-post-form" method="post">
+          <textarea
+            name="content"
+            cols="30"
+            rows="5"
+            placeholder="Text Here..."
+          ></textarea>
+          <input type="submit" value="submit" />
+        </form>
+        <% } %>
+        <div id="posts-list-container">
+          <ul>
+            <%for(post of posts) {%> <%- include('_post')-%> <%}%>
+          </ul>
+        </div>
+      </section>
 
-              <%}%>
-              <div class="post-comments-list">
-                <ul id="post-comments-<%=post.id%>">
-                  <% for(comment of post.comments){ %>
-                  <p>
-                    <strong> <%= comment.user.name %> </strong>
-                    <br />
-                    <%= comment.content %>
-                  </p>
-                  <%}%>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <%}%>
-        </ul>
-      </div>
-    </section>
+      <section id="users-friends">
+        <h4>Friend</h4>
+        <% for(u of all_users){ %>
+        <p>
+          <a href="/user/profile/<%= u.id %>"><%= u.name %></a>
+        </p>
+        <% } %>
+      </section>
+    </div>
   </body>
 </html>
