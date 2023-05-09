@@ -1,4 +1,3 @@
-
 // Step 1st create express server and run on port 8000
 const express = require('express')
 const app =express();
@@ -7,13 +6,14 @@ const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 //step 2 use mongoose db in express 
 const db =require('./config/mongoose');
-
 // used for session cookies
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-Strategy');
 const MongoStore = require('connect-mongo')(session);
 const sassMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 app.use(sassMiddleware({
   src: './assets/scss',
@@ -63,9 +63,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(passport.setAuthenticatedUser);
-
+app.use(flash());
+app.use(customMware.setFlash);
 // step 2 set path of router in express 
 app.use('/',require('./routes'))
 

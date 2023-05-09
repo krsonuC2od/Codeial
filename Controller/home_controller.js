@@ -3,17 +3,13 @@ const Post = require('../Models/post');
 const User  =require('../Models/user');
 const { post } = require('../routes/post');
 // step 2 part of controller create controller of home page
-module.exports.home = function (req, res) {
-  // console.log(req.cookies);
-  //  return res.end('<h1>Controller is working</h1>')
-  // Post.find({},function(err,posts){
-  //   return res.render("home", {
-  //     title: "Codeial | Home",
-  //     posts:posts
-  //   });
-  // });
-
-  Post.find({}).populate('user')
+module.exports.home = async function (req, res) {
+ 
+  try { 
+    //populate the user of each post 
+  let posts = await  Post.find({})
+  .sort('-createdAt')
+  .populate('user')
   .populate({
     path:'comments',
     populate:{
@@ -21,16 +17,17 @@ module.exports.home = function (req, res) {
     }
   })
   
-  .exec(function(err,posts){
-    User.find({},function(err,users){
-      return res.render("home", {
-        title: "Codeial | Home",
-        posts:posts,
-        all_users:users
-      });
+  
+    let users = await  User.find({});
+    return res.render("home", {
+      title: "Codeial | Home",
+      posts:posts,
+      all_users:users
     });
-    
-  });
+  }catch(err){
+    console.log('Error' , err);
+    return;
+  }
 }
 
 

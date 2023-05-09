@@ -3,15 +3,7 @@ const User = require("../Models/user");
 // step 2 part of controller create controller of user profile page
 
 module.exports.profile = function (req, res) {
-  // if (req.cookies.user_id) {
-  //   User.findById(req.cookies.user_id, function (err, user) {
-  //     // if (user) {
-       
-  //     // return res.redirect("/user/sign-In");
-  //   });
-  // } else {
-  //   return res.redirect("/user/sign-In");
-  // }
+
   User.findById(req.params.id,function(err , user){
     return res.render("userProfile", {
       title: "user||Profile",
@@ -24,9 +16,11 @@ module.exports.profile = function (req, res) {
 module.exports.update = function(req , res){
   if(req.user.id == req.params.id){
     User.findByIdAndUpdate(req.params.id , req.body, function(err,user){
+      req.flash('success','Updated');
       return res.redirect('back');
     });
   }else{
+    req.flash('error','Unauthorize');
     return res.status(401).send('Unauthorized');
   }
 }
@@ -76,7 +70,7 @@ module.exports.create = function (req, res) {
 
           return;
         }
-
+     req.flash('success','welcome');
         return res.redirect("/user/sign-In");
       });
     } else {
@@ -87,34 +81,14 @@ module.exports.create = function (req, res) {
 
 //sign in and create session for user
 module.exports.createSession = function (req, res) {
+  req.flash('success', 'Logged in Successfully');
   return res.redirect("/");
 };
 
 module.exports.destroySession = function (req, res) {
-  // req.logout();
-  // return res.redirect('/');
+ req.logout();
+ req.flash('success' , 'you have logged out..!');
+  return res.redirect('/');
 };
 
-// step :: 3 login user validation
-module.exports.createSection = function (req, res) {
-  //find the user
-  User.findOne({ email: req.body.email }, function (err, user) {
-    if (err) {
-      console.log("Error :: Getting error At sign In User");
-      return;
-    }
-    //handle user found
-    if (user) {
-      //handle password which doesn't match
-      if (user.password != req.body.password) {
-        return res.redirect("back");
-      }
-      //handle session creation
-      res.cookie("user_id", user.id);
-      res.redirect("/user/profile");
-    } else {
-      //handle user not found
-      return res.redirect("back");
-    }
-  });
-};
+
