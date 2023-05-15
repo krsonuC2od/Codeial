@@ -5,9 +5,6 @@ const route= express.Router();
 // step 2 use homeController
 const homeController =require('../Controller/home_controller');
 const router = require('./user');
-
-
-
 console.log("router  is loaded");
 // step 2  call home through Controller
 route.get('/',homeController.home);
@@ -16,6 +13,7 @@ route.get('/',homeController.home);
 route.use('/user',require('./user'));
 route.use('/post',require('./post'));
 route.use('/comments',require('./comment'));
+route.use('/api',require('./api'));
 
 
 
