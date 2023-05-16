@@ -7,6 +7,7 @@ const route=express.Router();
 const userController =require('../Controller/user_controller')
 
 const passport = require('passport');
+const { Router } = require('express');
 
 //  step 2 call user profile
 route.get('/profile/:id',passport.checkAuthentication, userController.profile)
@@ -40,6 +41,9 @@ route.get('/sign-out',(req, res) => {
       res.redirect("/");
     });
   },userController.destroySession);
+
+  route.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}));
+  route.get('/auth/google/callback',passport.authenticate('google',{failureRedirect: '/user/sign-In'}),userController.createSession);
 
 
 // step 2 export router
